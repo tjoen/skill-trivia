@@ -1,0 +1,7 @@
+{
+  "utterance": "play trivia",
+  "intent_type": "TriviaIntent",
+  "intent": {
+    "TriviaKeyword": "let's play trivia",
+  }
+}
