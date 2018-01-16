@@ -31,7 +31,8 @@ class TriviaSkill(MycroftSkill):
         score = 0
         right = ['Right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice']
         wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
-        for f in questions:
+        self.speak("Okay, Let's play a game of trivia. Get ready!")
+	for f in questions:
             quest = h.unescape(f['question'])
             self.speak("The category is "+ f['category']+ ". " + quest + "\n" )
             right_answer = h.unescape(f['correct_answer'])
@@ -42,8 +43,8 @@ class TriviaSkill(MycroftSkill):
             random.shuffle(allanswers)
             i=0
             for a in allanswers:
-                self.speak(i + 1,".", a)
-                i = i + 1
+		i = i + 1
+                self.speak(i + "." + a)
             response = self.get_response('what.is.your.answer')
             self.speak("Your choice is "+ response)        
             if right_answer == allanswers[int(response)-1]:
