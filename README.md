@@ -1,6 +1,6 @@
 # Mycroft Trivia skill
 
-This skill starts a game of trivia. You get 5 questions.
+This skill starts a game of trivia. At this moment it will ask you 5 questions.
 
 ## Current state
 
@@ -13,4 +13,8 @@ Known issues:
  - ...
 
 TODO:
- - Set category, difficulty and number of questions
+ - Set categories, 
+ - implement more players
+ - add sounds
+ - set difficulty 
+ - set the number of questions
