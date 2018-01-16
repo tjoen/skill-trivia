@@ -44,7 +44,7 @@ class TriviaSkill(MycroftSkill):
             i=0
             for a in allanswers:
 		i = i + 1
-                self.speak(i + "." + a)
+                self.speak(str(i) + "." + a)
             response = self.get_response('what.is.your.answer')
             self.speak("Your choice is "+ response)        
             if right_answer == allanswers[int(response)-1]:
