@@ -14,6 +14,10 @@ __author__ = 'tjoen'
 # statements will show up in the command line when running Mycroft.
 LOGGER = getLogger(__name__)
 
+right = ['Right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice']
+wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
+
+
 class TriviaSkill(MycroftSkill):
     def __init__(self):
         super(TriviaSkill, self).__init__("TriviaSkill")
@@ -61,9 +65,8 @@ class TriviaSkill(MycroftSkill):
         for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
-	    #self.play( 'think.wav' )
         while (i < 4):
-	    time.sleep(5)
+	    time.sleep(50)
 	response = self.getinput()	
         LOGGER.debug("The response data is: {}".format(response))
         self.speak("Your choice is "+ response)        
@@ -103,8 +106,6 @@ class TriviaSkill(MycroftSkill):
         m = json.loads(r.text)
         questions = m['results'];
         score = 0
-        right = ['Right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice']
-        wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
         self.play( 'intro.wav' )
 	self.speak("Okay, Let's play a game of trivia. Get ready!")
 	time.sleep(3)
