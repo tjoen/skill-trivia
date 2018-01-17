@@ -46,7 +46,7 @@ class TriviaSkill(MycroftSkill):
 		i = i + 1
                 self.speak(str(i) + "." + a)
             response = self.get_response('what.is.your.answer')
-	    LOGGER.info( response )
+	    LOGGER.debug("The response data is: {}".format(response.data))
             #answer = message.data["utterance"]
             self.speak("Your choice is "+ response)        
             if right_answer == allanswers[int(response)-1]:
