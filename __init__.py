@@ -40,6 +40,7 @@ class TriviaSkill(MycroftSkill):
         wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
         self.speak("Okay, Let's play a game of trivia. Get ready!")
 	self.play( 'intro.wav' )
+	time.sleep(5)
 	for f in questions:
             quest = h.unescape(f['question'])
             self.speak("The category is "+ f['category']+ ". " + quest + "\n" )
@@ -53,7 +54,7 @@ class TriviaSkill(MycroftSkill):
             for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
-	    self.play( 'think.wav' )
+	    #self.play( 'think.wav' )
 	    response = None
             response = self.get_response('what.is.your.answer', num_retries=4)
             if response == 'free':
