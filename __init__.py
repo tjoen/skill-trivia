@@ -54,11 +54,10 @@ class TriviaSkill(MycroftSkill):
         for a in answers:
             allanswers.append(h.unescape(a))
         random.shuffle(allanswers)
-	self.askquestion( category,quest, allanswers, correct_answer)
+	self.askquestion( category, quest, allanswers, correct_answer )
 
-    def askquestion(self, category,quest, allanswers, correct_answer):
+    def askquestion( self, category, quest, allanswers, correct_answer):
         i=0
-	response = None
         for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
@@ -74,6 +73,7 @@ class TriviaSkill(MycroftSkill):
 	return 
 
     def getinput(self):
+            response = None
             response = self.get_response('what.is.your.answer')
 	    if response:
                 if response == 'free' or response == 'tree':
