@@ -45,7 +45,7 @@ class TriviaSkill(MycroftSkill):
             for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + "." + a)
-            response = self.get_response('what.is.your.answer', on_fail="self.speak('Please say that again')", num_retries=2)
+            response = self.get_response('what.is.your.answer', num_retries=2)
             if not response:
                 return  # cancelled
 	    LOGGER.debug("The response data is: {}".format(response))
