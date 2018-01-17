@@ -45,6 +45,7 @@ class TriviaSkill(MycroftSkill):
 	return	
 
     def preparequestion(self, category, question, answers, right_answer):
+	h = HTMLParser()
         quest = h.unescape( question )
         self.speak("The category is "+ category+ ". " + quest )
         correct_answer = h.unescape( right_answer )
@@ -98,7 +99,6 @@ class TriviaSkill(MycroftSkill):
         url = "https://opentdb.com/api.php?amount=5&type=multiple"
         headers = {'Accept': 'text/plain'}
         r = requests.get(url, headers)
-        h = HTMLParser()
         m = json.loads(r.text)
         questions = m['results'];
         score = 0
