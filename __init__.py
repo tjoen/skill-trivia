@@ -62,9 +62,8 @@ class TriviaSkill(MycroftSkill):
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
 	    #self.play( 'think.wav' )
-	while i < 4:
+        while (i < 4):
 	    time.sleep(5)
-	
 	response = self.getinput()	
         LOGGER.debug("The response data is: {}".format(response))
         self.speak("Your choice is "+ response)        
