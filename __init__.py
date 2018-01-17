@@ -46,10 +46,10 @@ class TriviaSkill(MycroftSkill):
 		i = i + 1
                 self.speak(str(i) + "." + a)
             response = self.get_response('what.is.your.answer')
-	    LOGGER.info( message.data["utterance"] )
-            answer = message.data["utterance"]
-            self.speak("Your choice is "+ answer)        
-            if right_answer == allanswers[int(answer)-1]:
+	    LOGGER.info( response )
+            #answer = message.data["utterance"]
+            self.speak("Your choice is "+ response)        
+            if right_answer == allanswers[int(response)-1]:
                 self.speak(random.choice(right))
                 score = score+1
             else:
