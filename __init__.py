@@ -24,8 +24,8 @@ class TriviaSkill(MycroftSkill):
             require("TriviaKeyword").build()
         self.register_intent(trivia_intent, self.handle_trivia_intent)
 	
-    def play(self,filename):
-        p = subprocess.Popen(["aplay", filename ], stdout=subprocess.STDOUT, stderr=subprocess.PIPE)
+    def play(self, filename):
+        p = subprocess.Popen(["aplay", self.settings.get('resdir')+filename ], stdout=subprocess.STDOUT, stderr=subprocess.PIPE)
         p.communicate()
 	
     def handle_trivia_intent(self, message):
@@ -39,7 +39,7 @@ class TriviaSkill(MycroftSkill):
         right = ['Right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice']
         wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
         self.speak("Okay, Let's play a game of trivia. Get ready!")
-	self.play( self.settings.get('resdir')+'intro.wav' )
+	self.play( 'intro.wav' )
 	for f in questions:
             quest = h.unescape(f['question'])
             self.speak("The category is "+ f['category']+ ". " + quest + "\n" )
@@ -53,7 +53,7 @@ class TriviaSkill(MycroftSkill):
             for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
-	    self.play( self.settings.get('resdir')+'think.wav' )
+	    self.play( 'think.wav' )
 	    response = None
             response = self.get_response('what.is.your.answer', num_retries=4)
             if response == 'free':
@@ -66,14 +66,14 @@ class TriviaSkill(MycroftSkill):
             self.speak("Your choice is "+ response)        
             if right_answer == allanswers[int(response)-1]:
                 self.speak(random.choice(right))
-		self.play( self.settings.get('resdir')+'true.wav' )
+		self.play( 'true.wav' )
                 score = score+1
 		time.sleep(1)
             else:
                 self.speak(random.choice(wrong))
-		self.play( self.settings.get('resdir')+'false.wav' )
+		self.play( 'false.wav' )
                 self.speak("The answer is "+right_answer)
-	self.play( self.settings.get('resdir')+'end.wav' )
+	self.play( 'end.wav' )
         self.speak("You answered " +str(score)+ " questions correct")
 	
     def stop(self):
