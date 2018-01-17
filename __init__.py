@@ -45,11 +45,14 @@ class TriviaSkill(MycroftSkill):
             for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + "." + a)
-            response = self.get_response('what.is.your.answer')
-	    LOGGER.debug("The response data is: {}".format(response.data))
+            response = self.get_response('what.is.your.answer', validator=is_int,
+                              on_fail="self.speak('Please say that again')", num_retries=2)
+            if not response:
+                return  # cancelled
+	    LOGGER.debug("The response data is: {}".format(response))
             #answer = message.data["utterance"]
-            self.speak("Your choice is "+ response.data)        
-            if right_answer == allanswers[int(response.data)-1]:
+            self.speak("Your choice is "+ response)        
+            if right_answer == allanswers[int(response)-1]:
                 self.speak(random.choice(right))
                 score = score+1
             else:
