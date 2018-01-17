@@ -48,11 +48,11 @@ class TriviaSkill(MycroftSkill):
                 self.speak(str(i) + ".    " + a)
 	    response = None
             response = self.get_response('what.is.your.answer', num_retries=4)
-            if response = 'free':
+            if response == 'free':
 	        reponse = 3
-	    if response = 'to':
+	    if response == 'to':
 		response = 2
-	    if response = 'for':
+	    if response == 'for':
 		response = 4
 	    LOGGER.debug("The response data is: {}".format(response))
             self.speak("Your choice is "+ response)        
