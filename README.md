@@ -15,6 +15,5 @@ Known issues:
 TODO:
  - Set categories, 
  - implement more players
- - add sounds
  - set difficulty 
  - set the number of questions
