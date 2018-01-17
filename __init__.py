@@ -1,6 +1,7 @@
-﻿from adapt.intent import IntentBuilder
+from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
+from mycroft.skills.audioservice import AudioService
 import requests
 import json
 import random
@@ -18,6 +19,8 @@ class TriviaSkill(MycroftSkill):
         super(TriviaSkill, self).__init__("TriviaSkill")
 
     def initialize(self):
+	self.settings['resdir'] = '/opt/mycroft/skills/skill-trivia/res/'
+	self.audio_service = AudioService(self.emitter)
 	trivia_intent = IntentBuilder("TriviaIntent").\
             require("TriviaKeyword").build()
         self.register_intent(trivia_intent, self.handle_trivia_intent)
@@ -33,6 +36,7 @@ class TriviaSkill(MycroftSkill):
         right = ['Right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice']
         wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
         self.speak("Okay, Let's play a game of trivia. Get ready!")
+	self.audio_service.play( self.settings.get('resdir')+'intro.wav' )
 	for f in questions:
             quest = h.unescape(f['question'])
             self.speak("The category is "+ f['category']+ ". " + quest + "\n" )
@@ -46,6 +50,7 @@ class TriviaSkill(MycroftSkill):
             for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
+	    self.audio_service.play( self.settings.get('resdir')+'think.mp3' )
 	    response = None
             response = self.get_response('what.is.your.answer', num_retries=4)
             if response == 'free':
@@ -58,13 +63,14 @@ class TriviaSkill(MycroftSkill):
             self.speak("Your choice is "+ response)        
             if right_answer == allanswers[int(response)-1]:
                 self.speak(random.choice(right))
+		self.audio_service.play( self.settings.get('resdir')+'true.wav' )
                 score = score+1
 		time.sleep(1)
             else:
                 self.speak(random.choice(wrong))
-		time.sleep(1)
+		self.audio_service.play( self.settings.get('resdir')+'false.wav' )
                 self.speak("The answer is "+right_answer)
-		time.sleep(1)
+	self.audio_service.play( self.settings.get('resdir')+'end.wav' )
         self.speak("You answered " +str(score)+ " questions correct")
 
     def stop(self):
