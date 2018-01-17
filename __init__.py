@@ -26,7 +26,7 @@ class TriviaSkill(MycroftSkill):
 	
     def play(self,filename):
         p = Popen(["aplay", filename ], stdout=PIPE, stderr=PIPE)
-        p.communicate())
+        p.communicate()
 	
     def handle_trivia_intent(self, message):
         url = "https://opentdb.com/api.php?amount=5&type=multiple"
