@@ -5,7 +5,7 @@ import requests
 import json
 import random
 import time
-import subprocess
+from subprocess import Popen, PIPE
 from HTMLParser import HTMLParser
 
 __author__ = 'tjoen'
