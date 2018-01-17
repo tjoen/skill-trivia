@@ -108,7 +108,7 @@ class TriviaSkill(MycroftSkill):
 	self.speak("Okay, Let's play a game of trivia. Get ready!")
 	time.sleep(3)
 	for f in questions:
-            preparequestion(self, f['category'], f['question'], f['incorrect_answers'], f['correct_answer'])
+            self.preparequestion( f['category'], f['question'], f['incorrect_answers'], f['correct_answer'])
         self.endgame(score)
 
     def stop(self):
