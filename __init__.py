@@ -4,6 +4,7 @@ from mycroft.util.log import getLogger
 import requests
 import json
 import random
+import time
 from HTMLParser import HTMLParser
 
 __author__ = 'tjoen'
@@ -44,19 +45,26 @@ class TriviaSkill(MycroftSkill):
             i=0
             for a in allanswers:
 		i = i + 1
-                self.speak(str(i) + "." + a)
-            response = self.get_response('what.is.your.answer', num_retries=2)
-            if not response:
-                return  # cancelled
+                self.speak(str(i) + ".    " + a)
+	    response = None
+            response = self.get_response('what.is.your.answer', num_retries=4)
+            if response = 'free':
+	        reponse = 3
+	    if response = 'to':
+		response = 2
+	    if response = 'for':
+		response = 4
 	    LOGGER.debug("The response data is: {}".format(response))
-            #answer = message.data["utterance"]
             self.speak("Your choice is "+ response)        
             if right_answer == allanswers[int(response)-1]:
                 self.speak(random.choice(right))
                 score = score+1
+		time.sleep(1)
             else:
                 self.speak(random.choice(wrong))
-                self.speak("The answer is "+right_answer)        
+		time.sleep(1)
+                self.speak("The answer is "+right_answer)
+		time.sleep(1)
         self.speak("You answered " +str(score)+ " questions correct")
 
     def stop(self):
