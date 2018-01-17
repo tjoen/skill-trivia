@@ -5,7 +5,6 @@ import requests
 import json
 import random
 import time
-import tempfile
 import subprocess
 from HTMLParser import HTMLParser
 
@@ -24,7 +23,11 @@ class TriviaSkill(MycroftSkill):
 	trivia_intent = IntentBuilder("TriviaIntent").\
             require("TriviaKeyword").build()
         self.register_intent(trivia_intent, self.handle_trivia_intent)
-  
+	
+    def play(self,filename):
+        cmd = ['aplay', str(filename)]
+        subprocess.call(cmd)
+	
     def handle_trivia_intent(self, message):
         url = "https://opentdb.com/api.php?amount=5&type=multiple"
         headers = {'Accept': 'text/plain'}
@@ -72,13 +75,6 @@ class TriviaSkill(MycroftSkill):
                 self.speak("The answer is "+right_answer)
 	self.play( self.settings.get('resdir')+'end.wav' )
         self.speak("You answered " +str(score)+ " questions correct")
-
-    def play(self,filename):
-        cmd = ['aplay', str(filename)]
-        with tempfile.TemporaryFile() as f:
-            subprocess.call(cmd, stdout=f, stderr=f)
-            f.seek(0)
-            output = f.read()
 	
     def stop(self):
         pass
