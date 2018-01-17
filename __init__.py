@@ -62,14 +62,14 @@ class TriviaSkill(MycroftSkill):
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
 	    #self.play( 'think.wav' )
-	time.sleep(3)
+	time.sleep(8)
 	response = self.getinput()	
         LOGGER.debug("The response data is: {}".format(response))
         self.speak("Your choice is "+ response)        
         if correct_answer == allanswers[int(response)-1]:
             self.right()
         else:
-            self.wrong(self, correct_answer)
+            self.wrong(correct_answer)
 	return 
 
     def getinput(self):
