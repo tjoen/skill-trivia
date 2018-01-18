@@ -1,5 +1,6 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
+from mycroft.util import wait_while_speaking
 from mycroft.util.log import getLogger
 import requests
 import json
@@ -37,21 +38,24 @@ class TriviaSkill(MycroftSkill):
 
     def wrong(self, right_answer):
         self.speak(random.choice(wrong))
+	wait_while_speaking()
         self.play( 'false.wav' )
         self.speak("The answer is "+right_answer)
+	wait_while_speaking()
 	return
 
     def right(self):
         self.speak(random.choice(right))
+	wait_while_speaking()
 	self.play( 'true.wav' )
         self.score(1)
-        time.sleep(1)
 	return	
 
     def preparequestion(self, category, question, answers, right_answer):
 	h = HTMLParser()
         quest = h.unescape( question )
         self.speak("The category is "+ category+ ". " + quest )
+	wait_while_speaking()
         correct_answer = h.unescape( right_answer )
         allanswers = list()
         allanswers.append(h.unescape(right_answer))
@@ -65,8 +69,7 @@ class TriviaSkill(MycroftSkill):
         for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
-        while (i < 4):
-	    time.sleep(50)
+		wait_while_speaking()
 	response = self.getinput()	
         LOGGER.debug("The response data is: {}".format(response))
         self.speak("Your choice is "+ response)        
@@ -93,8 +96,10 @@ class TriviaSkill(MycroftSkill):
     def endgame(self, score):
         self.play( 'end.wav' )
         self.speak("You answered " +str(score)+ " questions correct")
+	wait_while_speaking()
         self.speak("Thanks for playing!")
-
+        wait_while_speaking()
+	
     def handle_trivia_intent(self, message):
 	self.settings['question'] = None
 	self.settings['answers'] = None
@@ -108,6 +113,7 @@ class TriviaSkill(MycroftSkill):
         score = 0
         self.play( 'intro.wav' )
 	self.speak("Okay, Let's play a game of trivia. Get ready!")
+	wait_while_speaking()
 	time.sleep(3)
 	for f in questions:
             self.preparequestion( f['category'], f['question'], f['incorrect_answers'], f['correct_answer'])
