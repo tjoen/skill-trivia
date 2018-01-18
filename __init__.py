@@ -17,6 +17,7 @@ LOGGER = getLogger(__name__)
 
 right = ['Right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice']
 wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
+validmc = [ '1', '2', '3', '4']
 score = 0
 
 class TriviaSkill(MycroftSkill):
@@ -94,7 +95,10 @@ class TriviaSkill(MycroftSkill):
 		    response = 2
 	        if response == 'for':
 		    response = 4
-		return response
+		if response in validmc:
+		    return response
+	        else:
+		    self.getinput()
 	    else:
 		self.getinput()
 
