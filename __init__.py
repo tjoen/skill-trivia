@@ -84,7 +84,7 @@ class TriviaSkill(MycroftSkill):
             #response = None
             response = self.get_response('what.is.your.answer')
             LOGGER.debug("The response data is: {}".format(response))
-            LOGGER.debug("The message data is: {}".format(message))
+            #LOGGER.debug("The message data is: {}".format(message))
 	    #wait_while_speaking()
 	    if response:
 		
