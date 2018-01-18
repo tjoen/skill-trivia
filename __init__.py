@@ -86,9 +86,11 @@ class TriviaSkill(MycroftSkill):
             response = self.get_response('what.is.your.answer')
 	    wait_while_speaking()
 	    if response:
+                if response == 'wan':
+	            reponse = 1
                 if response == 'free' or response == 'tree':
 	            reponse = 3
-	        if response == 'to':
+	        if response == 'to' or response == 'do':
 		    response = 2
 	        if response == 'for':
 		    response = 4
