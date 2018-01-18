@@ -17,7 +17,7 @@ LOGGER = getLogger(__name__)
 
 right = ['Right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice']
 wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
-
+score = 0
 
 class TriviaSkill(MycroftSkill):
     def __init__(self):
@@ -33,6 +33,7 @@ class TriviaSkill(MycroftSkill):
         p.communicate()
 	
     def score(self, point):
+	global score
         score = score+point
 	return
 
@@ -112,6 +113,7 @@ class TriviaSkill(MycroftSkill):
         r = requests.get(url, headers)
         m = json.loads(r.text)
         questions = m['results'];
+	global score
         score = 0
         self.play( 'intro.wav' )
 	self.speak("Okay, Let's play a game of trivia. Get ready!")
