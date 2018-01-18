@@ -83,6 +83,7 @@ class TriviaSkill(MycroftSkill):
     def getinput(self):
             response = None
             response = self.get_response('what.is.your.answer')
+	    wait_while_speaking()
 	    if response:
                 if response == 'free' or response == 'tree':
 	            reponse = 3
