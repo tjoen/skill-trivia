@@ -82,26 +82,9 @@ class TriviaSkill(MycroftSkill):
 
     def getinput(self):
             #response = None
-            response = self.get_response('what.is.your.answer')
-            LOGGER.debug("The response data is: {}".format(response))
-            #LOGGER.debug("The message data is: {}".format(message))
-	    #wait_while_speaking()
-	    if response:
-		
-                if response == 'wan':
-	            reponse = 1
-                if response == 'free' or response == 'tree':
-	            reponse = 3
-	        if response == 'to' or response == 'do':
-		    response = 2
-	        if response == 'for':
-		    response = 4
-		if response in validmc:
-		    return response
-	        else:
-		    self.getinput()
-	    else:
-		self.getinput()
+            #response = self.get_response('what.is.your.answer')
+            self.speak("choose 1, 2, 3, or 4", expect_response=True)
+	    wait_while_speaking()
 
     def endgame(self, score):
         self.play( 'end.wav' )
@@ -129,6 +112,22 @@ class TriviaSkill(MycroftSkill):
 	for f in questions:
             self.preparequestion( f['category'], f['question'], f['incorrect_answers'], f['correct_answer'])
         self.endgame(score)
+	
+
+    def converse(self, utterances, lang="en-us"):
+        if utterances == "1" or utterances == "wan":
+        # do whatever
+            response = 1
+	elif utterances == "2" or utterances == "to":
+	    response = 2
+	elif utterances == "3" or utterances == "tree" or utterances == "free":
+	    response = 3
+	elif utterances == "4" or utterances == "for":
+	    response = 4	
+        if response in validmc:
+            return response
+        else:
+            self.getinput()
 
     def stop(self):
         self.endgame(score)
