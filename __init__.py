@@ -81,11 +81,13 @@ class TriviaSkill(MycroftSkill):
 	return 
 
     def getinput(self):
-            response = None
+            #response = None
             response = self.get_response('what.is.your.answer')
-	    wait_while_speaking()
+            LOGGER.debug("The response data is: {}".format(response))
+            LOGGER.debug("The message data is: {}".format(message))
+	    #wait_while_speaking()
 	    if response:
-		LOGGER.debug("The response data is: {}".format(response))
+		
                 if response == 'wan':
 	            reponse = 1
                 if response == 'free' or response == 'tree':
