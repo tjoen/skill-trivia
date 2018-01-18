@@ -1,12 +1,12 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
-from mycroft.util import wait_while_speaking
+from mycroft.audio import wait_while_speaking
+from mycroft.util import play_wav
 from mycroft.util.log import getLogger
 import requests
 import json
 import random
 import time
-from subprocess import Popen, PIPE
 from HTMLParser import HTMLParser
 
 __author__ = 'tjoen'
@@ -30,8 +30,7 @@ class TriviaSkill(MycroftSkill):
         self.register_intent(trivia_intent, self.handle_trivia_intent)
 	
     def play(self, filename):
-        p = Popen(["aplay", self.settings.get('resdir')+filename ], stdout=PIPE, stderr=PIPE)
-        p.communicate()
+        play_wav( self.settings.get('resdir')+filename )
 	
     def score(self, point):
 	global score
@@ -72,8 +71,7 @@ class TriviaSkill(MycroftSkill):
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
 		wait_while_speaking()
-	response = self.getinput()	
-        LOGGER.debug("The response data is: {}".format(response))
+	response = self.getinput()
         self.speak("Your choice is "+ response)
 	wait_while_speaking()
         if correct_answer == allanswers[int(response)-1]:
@@ -87,6 +85,7 @@ class TriviaSkill(MycroftSkill):
             response = self.get_response('what.is.your.answer')
 	    wait_while_speaking()
 	    if response:
+		LOGGER.debug("The response data is: {}".format(response))
                 if response == 'wan':
 	            reponse = 1
                 if response == 'free' or response == 'tree':
@@ -122,9 +121,9 @@ class TriviaSkill(MycroftSkill):
 	global score
         score = 0
         self.play( 'intro.wav' )
-	self.speak("Okay, Let's play a game of trivia. Get ready!")
+	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
-	time.sleep(3)
+	time.sleep(2)
 	for f in questions:
             self.preparequestion( f['category'], f['question'], f['incorrect_answers'], f['correct_answer'])
         self.endgame(score)
