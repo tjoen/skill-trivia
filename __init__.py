@@ -72,7 +72,8 @@ class TriviaSkill(MycroftSkill):
 		wait_while_speaking()
 	response = self.getinput()	
         LOGGER.debug("The response data is: {}".format(response))
-        self.speak("Your choice is "+ response)        
+        self.speak("Your choice is "+ response)
+	wait_while_speaking()
         if correct_answer == allanswers[int(response)-1]:
             self.right()
         else:
