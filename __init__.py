@@ -38,8 +38,6 @@ class TriviaSkill(MycroftSkill):
 	return
 
     def wrong(self, right_answer):
-        self.enclosure.activate_mouth_events()
-        self.enclosure.mouth_reset()
         self.speak(random.choice(wrong))
 	wait_while_speaking()
         self.play( 'false.wav' )
@@ -48,8 +46,6 @@ class TriviaSkill(MycroftSkill):
 	return
 
     def right(self):
-        self.enclosure.activate_mouth_events()
-        self.enclosure.mouth_reset()
         self.speak(random.choice(right))
 	wait_while_speaking()
 	self.play( 'true.wav' )
@@ -61,9 +57,12 @@ class TriviaSkill(MycroftSkill):
         quest = h.unescape( question )
         self.enclosure.deactivate_mouth_events()
         text = quest
-        self.enclosure.mouth_text(text)
+       
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
+	self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
+	self.enclosure.mouth_text(text)
         correct_answer = h.unescape( right_answer )
         allanswers = list()
         allanswers.append(h.unescape(right_answer))
@@ -80,7 +79,6 @@ class TriviaSkill(MycroftSkill):
                 self.speak(str(i) + ".    " + a)
                 ans = ans + str(i) + "." + a + "  "
 		wait_while_speaking()
-        self.enclosure.deactivate_mouth_events()
         text = ans
         self.enclosure.mouth_text(text)
 	response = self.getinput()
@@ -97,13 +95,13 @@ class TriviaSkill(MycroftSkill):
             response = self.get_response('what.is.your.answer')
 	    wait_while_speaking()
             if response:              
-                if response == "1" or utterances == "wan":
+                if response == "1" or response == "wan":
                     response = 1
-                elif response == "2" or utterances == "to":
+                elif response == "2" or response == "to":
     	            response = 2
-                elif response == "3" or utterances == "tree" or utterances == "free":
+                elif response == "3" or response == "tree" or response == "free":
     	            response = 3
-                elif response == "4" or utterances == "for":
+                elif response == "4" or response == "for":
     	            response = 4	
             if response in validmc:
                 return response
