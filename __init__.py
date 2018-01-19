@@ -58,8 +58,7 @@ class TriviaSkill(MycroftSkill):
         text = quest
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
-	self.enclosure.activate_mouth_events()
-        self.enclosure.mouth_reset()
+	self.enclosure.deactivate_mouth_events()
 	self.enclosure.mouth_text(text)
         correct_answer = h.unescape( right_answer )
         allanswers = list()
@@ -77,9 +76,11 @@ class TriviaSkill(MycroftSkill):
                 self.speak(str(i) + ".    " + a)
                 ans = ans + str(i) + "." + a + "  "
 		wait_while_speaking()
-        text = ans
-        self.enclosure.mouth_text(text)
+        self.enclosure.mouth_reset()
+        self.enclosure.mouth_text(ans)
 	response = self.getinput()
+	self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
         self.speak("Your choice is "+ response)
 	wait_while_speaking()
         if correct_answer == allanswers[int(response)-1]:
