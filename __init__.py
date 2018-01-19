@@ -56,10 +56,11 @@ class TriviaSkill(MycroftSkill):
 	h = HTMLParser()
         quest = h.unescape( question )
         text = quest
+	self.enclosure.deactivate_mouth_events()
+	self.enclosure.mouth_reset()
+	self.enclosure.mouth_text(text)
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
-	self.enclosure.deactivate_mouth_events()
-	self.enclosure.mouth_text(text)
         correct_answer = h.unescape( right_answer )
         allanswers = list()
         allanswers.append(h.unescape(right_answer))
@@ -95,13 +96,13 @@ class TriviaSkill(MycroftSkill):
 	    wait_while_speaking()
             if response:              
                 if response == "1" or response == "wan":
-                    response = 1
+                    response = '1'
                 elif response == "2" or response == "to":
-    	            response = 2
+    	            response = '2'
                 elif response == "3" or response == "tree" or response == "free":
-    	            response = 3
+    	            response = '3'
                 elif response == "4" or response == "for":
-    	            response = 4	
+    	            response = '4'	
             if response in validmc:
                 return response
             else:
