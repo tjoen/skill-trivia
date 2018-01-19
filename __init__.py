@@ -38,6 +38,8 @@ class TriviaSkill(MycroftSkill):
 	return
 
     def wrong(self, right_answer):
+        self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
         self.speak(random.choice(wrong))
 	wait_while_speaking()
         self.play( 'false.wav' )
@@ -46,6 +48,8 @@ class TriviaSkill(MycroftSkill):
 	return
 
     def right(self):
+        self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
         self.speak(random.choice(right))
 	wait_while_speaking()
 	self.play( 'true.wav' )
@@ -55,6 +59,9 @@ class TriviaSkill(MycroftSkill):
     def preparequestion(self, category, question, answers, right_answer):
 	h = HTMLParser()
         quest = h.unescape( question )
+        self.enclosure.deactivate_mouth_events()
+        text = quest
+        self.enclosure.mouth_text(text)
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
         correct_answer = h.unescape( right_answer )
@@ -67,10 +74,15 @@ class TriviaSkill(MycroftSkill):
 
     def askquestion( self, category, quest, allanswers, correct_answer):
         i=0
+        ans = ""
         for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
+                ans = ans + str(i) + "." + a + "  "
 		wait_while_speaking()
+        self.enclosure.deactivate_mouth_events()
+        text = ans
+        self.enclosure.mouth_text(text)
 	response = self.getinput()
         self.speak("Your choice is "+ response)
 	wait_while_speaking()
@@ -82,9 +94,23 @@ class TriviaSkill(MycroftSkill):
 
     def getinput(self):
             #response = None
-            #response = self.get_response('what.is.your.answer')
-            self.speak("choose 1, 2, 3, or 4", expect_response=True)
+            response = self.get_response('what.is.your.answer')
 	    wait_while_speaking()
+            if response:              
+                if response == "1" or utterances == "wan":
+                    response = 1
+                elif response == "2" or utterances == "to":
+    	            response = 2
+                elif response == "3" or utterances == "tree" or utterances == "free":
+    	            response = 3
+                elif response == "4" or utterances == "for":
+    	            response = 4	
+            if response in validmc:
+                return response
+            else:
+                self.speak( response + " is not a valid choice")
+    	        wait_while_speaking()
+                self.getinput()
 
     def endgame(self, score):
         self.play( 'end.wav' )
@@ -115,22 +141,10 @@ class TriviaSkill(MycroftSkill):
 	
 
     def converse(self, utterances, lang="en-us"):
-        if utterances == "1" or utterances == "wan":
-        # do whatever
-            response = 1
-	elif utterances == "2" or utterances == "to":
-	    response = 2
-	elif utterances == "3" or utterances == "tree" or utterances == "free":
-	    response = 3
-	elif utterances == "4" or utterances == "for":
-	    response = 4	
-        if response in validmc:
-            return response
-        else:
-            self.getinput()
+
 
     def stop(self):
-        self.endgame(score)
+        #self.endgame(score)
         pass
 
 def create_skill():
