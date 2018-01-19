@@ -55,10 +55,7 @@ class TriviaSkill(MycroftSkill):
     def preparequestion(self, category, question, answers, right_answer):
 	h = HTMLParser()
         quest = h.unescape( question )
-        text = quest
 	self.enclosure.deactivate_mouth_events()
-	self.enclosure.mouth_reset()
-	self.enclosure.mouth_text(text)
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
         correct_answer = h.unescape( right_answer )
@@ -72,17 +69,16 @@ class TriviaSkill(MycroftSkill):
     def askquestion( self, category, quest, allanswers, correct_answer):
         i=0
         ans = ""
+	self.enclosure.mouth_reset()
         for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
-                ans = ans + str(i) + "." + a + "  "
+		self.enclosure.mouth_text( str(i) + "." + a )
 		wait_while_speaking()
-        self.enclosure.mouth_reset()
-        self.enclosure.mouth_text(ans)
-	response = self.getinput()
 	self.enclosure.activate_mouth_events()
         self.enclosure.mouth_reset()
-        self.speak("Your choice is "+ response)
+	response = self.getinput()
+        self.speak("Your choice is "+ str(response))
 	wait_while_speaking()
         if correct_answer == allanswers[int(response)-1]:
             self.right()
