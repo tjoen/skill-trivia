@@ -140,11 +140,7 @@ class TriviaSkill(MycroftSkill):
         self.endgame(score)
 	
 
-    def converse(self, utterances, lang="en-us"):
-
-
     def stop(self):
-        #self.endgame(score)
         pass
 
 def create_skill():
