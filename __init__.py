@@ -55,9 +55,7 @@ class TriviaSkill(MycroftSkill):
     def preparequestion(self, category, question, answers, right_answer):
 	h = HTMLParser()
         quest = h.unescape( question )
-        self.enclosure.deactivate_mouth_events()
         text = quest
-       
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
 	self.enclosure.activate_mouth_events()
@@ -106,7 +104,7 @@ class TriviaSkill(MycroftSkill):
             if response in validmc:
                 return response
             else:
-                self.speak( response + " is not a valid choice")
+                self.speak( str(response)+ " is not a valid choice")
     	        wait_while_speaking()
                 self.getinput()
 
