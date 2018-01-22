@@ -38,6 +38,7 @@ class TriviaSkill(MycroftSkill):
 	return
 
     def wrong(self, right_answer):
+	self.enclosure.mouth_text( "WRONG!" )
         self.speak(random.choice(wrong))
 	wait_while_speaking()
         self.play( 'false.wav' )
@@ -46,6 +47,7 @@ class TriviaSkill(MycroftSkill):
 	return
 
     def right(self):
+        self.enclosure.mouth_text( "RIGHT!" )
         self.speak(random.choice(right))
 	wait_while_speaking()
 	self.play( 'true.wav' )
@@ -53,10 +55,9 @@ class TriviaSkill(MycroftSkill):
 	return	
 
     def preparequestion(self, category, question, answers, right_answer):
+	self.enclosure.deactivate_mouth_events()
 	h = HTMLParser()
         quest = h.unescape( question )
-	self.enclosure.mouth_display(img_code="HIAAAAAAAAAAAAAA", refresh=False)
-        self.enclosure.mouth_display(img_code="HIAAAAAAAAAAAAAA", x=24, refresh=False)
 	self.enclosure.mouth_text( quest )
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
@@ -107,8 +108,9 @@ class TriviaSkill(MycroftSkill):
                 self.getinput()
 
     def endgame(self, score):
+	self.enclosure.mouth_text( "SCORE: "+str(score) )
         self.play( 'end.wav' )
-        self.speak("You answered " +str(score)+ " questions correct")
+        self.speak("You answered " +c+ " questions correct")
 	wait_while_speaking()
         self.speak("Thanks for playing!")
         wait_while_speaking()
