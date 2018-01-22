@@ -91,15 +91,15 @@ class TriviaSkill(MycroftSkill):
             #response = None
             response = self.get_response('what.is.your.answer')
 	    wait_while_speaking()
-            if response:              
-                if response == "1" or response == "wan":
-                    response = '1'
-                elif response == "2" or response == "to":
-    	            response = '2'
-                elif response == "3" or response == "tree" or response == "free":
-    	            response = '3'
-                elif response == "4" or response == "for":
-    	            response = '4'	
+            #if response:              
+            #    if response == "1" or response == "none":
+            #        response = '1'
+            #    elif response == "2" or response == "to":
+    	    #        response = '2'
+            #    elif response == "3" or response == "tree" or response == "free":
+    	    #        response = '3'
+            #    elif response == "4" or response == "for":
+    	    #        response = '4'	
             if response in validmc:
                 return response
             else:
