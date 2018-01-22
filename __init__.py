@@ -74,8 +74,8 @@ class TriviaSkill(MycroftSkill):
         for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
-		ans = ans+(str(i) + ">" + a + " "
 		wait_while_speaking()
+		ans = ans+(str(i) + ">" + a + " "
 	self.enclosure.mouth_text( ans )
 	response = self.getinput()
         self.speak("Your choice is "+ str(response))
