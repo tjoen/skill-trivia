@@ -55,6 +55,9 @@ class TriviaSkill(MycroftSkill):
     def preparequestion(self, category, question, answers, right_answer):
 	h = HTMLParser()
         quest = h.unescape( question )
+	self.enclosure.mouth_display(img_code="HIAAAAAAAAAAAAAA", refresh=False)
+        self.enclosure.mouth_display(img_code="HIAAAAAAAAAAAAAA", x=24, refresh=False)
+	self.enclosure.mouth_text( quest )
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
         correct_answer = h.unescape( right_answer )
@@ -71,7 +74,9 @@ class TriviaSkill(MycroftSkill):
         for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
+		ans = ans+(str(i) + ">" + a + " "
 		wait_while_speaking()
+	self.enclosure.mouth_text( ans )
 	response = self.getinput()
         self.speak("Your choice is "+ str(response))
 	wait_while_speaking()
@@ -107,6 +112,7 @@ class TriviaSkill(MycroftSkill):
 	wait_while_speaking()
         self.speak("Thanks for playing!")
         wait_while_speaking()
+	self.stop()
 	
     def handle_trivia_intent(self, message):
         # Display icon on faceplate
@@ -128,14 +134,15 @@ class TriviaSkill(MycroftSkill):
 	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
 	time.sleep(2)
-	self.enclosure.activate_mouth_events()
-        self.enclosure.mouth_reset()
+	#self.enclosure.activate_mouth_events()
+        #self.enclosure.mouth_reset()
 	for f in questions:
             self.preparequestion( f['category'], f['question'], f['incorrect_answers'], f['correct_answer'])
         self.endgame(score)
 	
 
     def stop(self):
+	self.enclosure.reset()
         pass
 
 def create_skill():
