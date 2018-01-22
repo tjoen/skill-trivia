@@ -55,7 +55,6 @@ class TriviaSkill(MycroftSkill):
     def preparequestion(self, category, question, answers, right_answer):
 	h = HTMLParser()
         quest = h.unescape( question )
-	self.enclosure.deactivate_mouth_events()
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
         correct_answer = h.unescape( right_answer )
@@ -112,7 +111,7 @@ class TriviaSkill(MycroftSkill):
     def handle_trivia_intent(self, message):
         # Display icon on faceplate
         self.enclosure.deactivate_mouth_events()
-        self.enclosure.mouth_display("aIDADADPDPDPDADAAPAPAMAABHBHAAAOADADAOAABHBHAAAPAKAKAPAADNDNAAAAAA", x=0, y=0,
+        self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0,
                                          refresh=True)
 	self.settings['question'] = None
 	self.settings['answers'] = None
@@ -137,8 +136,6 @@ class TriviaSkill(MycroftSkill):
 	
 
     def stop(self):
-	self.enclosure.activate_mouth_events()
-        self.enclosure.mouth_reset()
         pass
 
 def create_skill():
