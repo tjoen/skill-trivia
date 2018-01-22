@@ -69,14 +69,10 @@ class TriviaSkill(MycroftSkill):
     def askquestion( self, category, quest, allanswers, correct_answer):
         i=0
         ans = ""
-	self.enclosure.mouth_reset()
         for a in allanswers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
-		self.enclosure.mouth_text( str(i) + "." + a )
 		wait_while_speaking()
-	self.enclosure.activate_mouth_events()
-        self.enclosure.mouth_reset()
 	response = self.getinput()
         self.speak("Your choice is "+ str(response))
 	wait_while_speaking()
@@ -114,6 +110,10 @@ class TriviaSkill(MycroftSkill):
         wait_while_speaking()
 	
     def handle_trivia_intent(self, message):
+        # Display icon on faceplate
+        self.enclosure.deactivate_mouth_events()
+        self.enclosure.mouth_display("aIDADADPDPDPDADAAPAPAMAABHBHAAAOADADAOAABHBHAAAPAKAKAPAADNDNAAAAAA", x=0, y=0,
+                                         refresh=True)
 	self.settings['question'] = None
 	self.settings['answers'] = None
 	self.settings['answers'] = None
@@ -129,12 +129,16 @@ class TriviaSkill(MycroftSkill):
 	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
 	time.sleep(2)
+	self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
 	for f in questions:
             self.preparequestion( f['category'], f['question'], f['incorrect_answers'], f['correct_answer'])
         self.endgame(score)
 	
 
     def stop(self):
+	self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
         pass
 
 def create_skill():
