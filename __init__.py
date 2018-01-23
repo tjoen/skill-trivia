@@ -103,7 +103,7 @@ class TriviaSkill(MycroftSkill):
                 response = resp
 		if resp == 'repeat':
 			self.speak('I will repeat the question')
-			self.askquestion( self, self.settings.get['cat'], self.settings.get['question'], self.settings.get['answers'], self.settings.get['correct_answer'])
+			self.askquestion( self, self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
                 else:
                         return response
             else:
