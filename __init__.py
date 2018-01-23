@@ -135,9 +135,9 @@ class TriviaSkill(MycroftSkill):
         questions = m['results'];
 	global score
         score = 0
+	self.enclosure.deactivate_mouth_events()
 	self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0, refresh=True)
         self.play( 'intro.wav' )
-	self.enclosure.deactivate_mouth_events()
 	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
 	time.sleep(2)
