@@ -69,6 +69,10 @@ class TriviaSkill(MycroftSkill):
         for a in answers:
             allanswers.append(h.unescape(a))
         random.shuffle(allanswers)
+	self.settings['cat'] = category
+	self.settings['question'] = quest
+	self.settings['answers'] = allanswers
+	self.settings['correct_answer'] = correct_answe
 	self.askquestion( category, quest, allanswers, correct_answer )
 
     def askquestion( self, category, quest, allanswers, correct_answer):
@@ -94,18 +98,13 @@ class TriviaSkill(MycroftSkill):
             #response = None
             resp = self.get_response('what.is.your.answer')
 	    wait_while_speaking()
-            #if response:              
-            #    if response == "1" or response == "none":
-            #        response = '1'
-            #    elif response == "2" or response == "to":
-    	    #        response = '2'
-            #    elif response == "3" or response == "tree" or response == "free":
-    	    #        response = '3'
-            #    elif response == "4" or response == "for":
-    	    #        response = '4'	
             if resp in validmc and resp != 'None':
                 response = resp
-                return response
+		if resp == 'repeat':
+			self.speak('I will repeat the question')
+			askquestion( self, self.settings.get['cat'], self.settings.get['question', self.settings.get['answers'], self.settings.get['correct_answer'])
+                else:
+                        return response
             else:
                 self.speak( str(resp)+ " is not a valid choice")
     	        wait_while_speaking()
@@ -124,20 +123,20 @@ class TriviaSkill(MycroftSkill):
     def handle_trivia_intent(self, message):
         # Display icon on faceplate
         self.enclosure.deactivate_mouth_events()
+        self.settings['cat'] = None
 	self.settings['question'] = None
 	self.settings['answers'] = None
-	self.settings['answers'] = None
+	self.settings['correct_answer'] = None
 	self.settings['resdir'] = '/opt/mycroft/skills/skill-trivia/res/'
         url = "https://opentdb.com/api.php?amount=5&type=multiple"
         headers = {'Accept': 'text/plain'}
         r = requests.get(url, headers)
         m = json.loads(r.text)
         questions = m['results'];
+	self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0, refresh=True)
 	global score
         score = 0
         self.play( 'intro.wav' )
-	self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0,
-                                         refresh=True)
 	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
 	time.sleep(2)
