@@ -73,6 +73,23 @@ class TriviaSkill(MycroftSkill):
 	self.settings['answers'] = allanswers
 	self.settings['correct_answer'] = correct_answer
 	self.askquestion( category, quest, allanswers, correct_answer )
+	
+
+    def repeatquestion(self, category, question, answers, right_answer):
+        self.speak("The category is "+ category+ ". " + quest )
+	wait_while_speaking()
+        i=0
+        ans = ""
+        for a in allanswers:
+		i = i + 1
+                self.speak(str(i) + ".    " + a)
+		wait_while_speaking()
+		#ans = ans+("|"+str(i)+"|"+a)
+	#self.enclosure.mouth_text( ans )
+	rresponse = self.getinput()
+	return rresponse
+	
+
 
     def askquestion( self, category, quest, allanswers, correct_answer):
         i=0
@@ -99,13 +116,12 @@ class TriviaSkill(MycroftSkill):
 	    wait_while_speaking()
 	    #time.sleep(5)
             if resp in validmc and resp != None:
-                response = resp
 		if resp == 'repeat':
 			self.speak('I will repeat the question')
 			wait_while_speaking()
-			self.askquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
+			self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
                 else:
-                        return response
+                        return resp
             else:
                 self.speak( str(resp)+ " is not a valid choice")
     	        wait_while_speaking()
