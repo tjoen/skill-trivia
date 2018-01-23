@@ -72,7 +72,7 @@ class TriviaSkill(MycroftSkill):
 	self.settings['cat'] = category
 	self.settings['question'] = quest
 	self.settings['answers'] = allanswers
-	self.settings['correct_answer'] = correct_answe
+	self.settings['correct_answer'] = correct_answer
 	self.askquestion( category, quest, allanswers, correct_answer )
 
     def askquestion( self, category, quest, allanswers, correct_answer):
