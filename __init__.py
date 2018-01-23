@@ -80,7 +80,7 @@ class TriviaSkill(MycroftSkill):
 	wait_while_speaking()
         i=0
         ans = ""
-        for a in allanswers:
+        for a in answers:
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
 		wait_while_speaking()
