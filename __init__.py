@@ -81,10 +81,10 @@ class TriviaSkill(MycroftSkill):
         i=0
         ans = ""
         for a in answers:
-		i = i + 1
-                self.speak(str(i) + ".    " + a)
-		wait_while_speaking()
-		#ans = ans+("|"+str(i)+"|"+a)
+            i = i + 1
+            self.speak(str(i) + ".    " + a)
+            wait_while_speaking()
+	    #ans = ans+("|"+str(i)+"|"+a)
 	#self.enclosure.mouth_text( ans )
 	rresponse = self.getinput()
 	return rresponse
@@ -95,10 +95,10 @@ class TriviaSkill(MycroftSkill):
         i=0
         ans = ""
         for a in allanswers:
-		i = i + 1
-                self.speak(str(i) + ".    " + a)
-		wait_while_speaking()
-		#ans = ans+("|"+str(i)+"|"+a)
+            i = i + 1
+            self.speak(str(i) + ".    " + a)
+            wait_while_speaking()
+            #ans = ans+("|"+str(i)+"|"+a)
 	#self.enclosure.mouth_text( ans )
 	response = self.getinput()
         self.speak("Your choice is "+ str(response))
@@ -155,6 +155,7 @@ class TriviaSkill(MycroftSkill):
         # title code
         self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=0, y=0, refresh=True)
         self.play( 'intro.wav' )
+	self.enclosure.deactivate_mouth_events()
 	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
 	time.sleep(4)
