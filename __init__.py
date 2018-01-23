@@ -55,10 +55,12 @@ class TriviaSkill(MycroftSkill):
 	return	
 
     def preparequestion(self, category, question, answers, right_answer):
-	self.enclosure.deactivate_mouth_events()
+	#
+	self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
 	h = HTMLParser()
         quest = h.unescape( question )
-	self.enclosure.mouth_text( quest )
+	#self.enclosure.mouth_text( quest )
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
         correct_answer = h.unescape( right_answer )
@@ -76,11 +78,12 @@ class TriviaSkill(MycroftSkill):
 		i = i + 1
                 self.speak(str(i) + ".    " + a)
 		wait_while_speaking()
-		ans = ans+("|"+str(i)+"|"+a)
-	self.enclosure.mouth_text( ans )
+		#ans = ans+("|"+str(i)+"|"+a)
+	#self.enclosure.mouth_text( ans )
 	response = self.getinput()
         self.speak("Your choice is "+ str(response))
 	wait_while_speaking()
+	self.enclosure.deactivate_mouth_events()
         if correct_answer == allanswers[int(response)-1]:
             self.right()
         else:
@@ -89,7 +92,7 @@ class TriviaSkill(MycroftSkill):
 
     def getinput(self):
             #response = None
-            response = self.get_response('what.is.your.answer')
+            resp = self.get_response('what.is.your.answer')
 	    wait_while_speaking()
             #if response:              
             #    if response == "1" or response == "none":
@@ -100,16 +103,18 @@ class TriviaSkill(MycroftSkill):
     	    #        response = '3'
             #    elif response == "4" or response == "for":
     	    #        response = '4'	
-            if response in validmc:
+            if resp in validmc and resp != 'None':
+                response = resp
                 return response
             else:
-                self.speak( str(response)+ " is not a valid choice")
+                self.speak( str(resp)+ " is not a valid choice")
     	        wait_while_speaking()
                 self.getinput()
 
     def endgame(self, score):
-	self.enclosure.mouth_text( "SCORE: "+str(score) )
+	self.enclosure.deactivate_mouth_events()
         self.play( 'end.wav' )
+	self.enclosure.mouth_text( "SCORE: "+str(score) )
         self.speak("You answered " +c+ " questions correct")
 	wait_while_speaking()
         self.speak("Thanks for playing!")
@@ -119,8 +124,6 @@ class TriviaSkill(MycroftSkill):
     def handle_trivia_intent(self, message):
         # Display icon on faceplate
         self.enclosure.deactivate_mouth_events()
-        self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0,
-                                         refresh=True)
 	self.settings['question'] = None
 	self.settings['answers'] = None
 	self.settings['answers'] = None
@@ -133,6 +136,8 @@ class TriviaSkill(MycroftSkill):
 	global score
         score = 0
         self.play( 'intro.wav' )
+	self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0,
+                                         refresh=True)
 	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
 	time.sleep(2)
