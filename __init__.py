@@ -60,7 +60,6 @@ class TriviaSkill(MycroftSkill):
         self.enclosure.mouth_reset()
 	h = HTMLParser()
         quest = h.unescape( question )
-	#self.enclosure.mouth_text( quest )
         self.speak("The category is "+ category+ ". " + quest )
 	wait_while_speaking()
         correct_answer = h.unescape( right_answer )
@@ -97,12 +96,13 @@ class TriviaSkill(MycroftSkill):
     def getinput(self):
             #response = None
             resp = self.get_response('what.is.your.answer')
-	    #wait_while_speaking()
+	    wait_while_speaking()
 	    #time.sleep(5)
             if resp in validmc and resp != None:
                 response = resp
 		if resp == 'repeat':
 			self.speak('I will repeat the question')
+			wait_while_speaking()
 			self.askquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
                 else:
                         return response
@@ -136,11 +136,12 @@ class TriviaSkill(MycroftSkill):
 	global score
         score = 0
 	self.enclosure.deactivate_mouth_events()
-	self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0, refresh=True)
+        # title code
+        self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=0, y=0, refresh=True)
         self.play( 'intro.wav' )
 	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
-	time.sleep(2)
+	time.sleep(4)
 	#self.enclosure.activate_mouth_events()
         #self.enclosure.mouth_reset()
 	for f in questions:
@@ -149,7 +150,10 @@ class TriviaSkill(MycroftSkill):
 	
 
     def stop(self):
+	self.enclosure.activate_mouth_events()
+        self.enclosure.mouth_reset()
 	self.enclosure.reset()
+	
         pass
 
 def create_skill():
