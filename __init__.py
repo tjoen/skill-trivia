@@ -111,21 +111,21 @@ class TriviaSkill(MycroftSkill):
 	return 
 
     def getinput(self):
-            #response = None
-            resp = self.get_response('what.is.your.answer')
-	    wait_while_speaking()
-	    #time.sleep(5)
-            if resp in validmc and resp != None:
-		if resp == 'repeat':
-			self.speak('I will repeat the question')
-			wait_while_speaking()
-			self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
-                else:
-                        return resp
+        #response = None
+        resp = self.get_response('what.is.your.answer')
+	wait_while_speaking()
+	#time.sleep(5)
+        if resp in validmc and resp != None:
+	    if resp == 'repeat':
+		self.speak('I will repeat the question')
+		wait_while_speaking()
+		self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
             else:
-                self.speak( str(resp)+ " is not a valid choice")
-    	        wait_while_speaking()
-                self.getinput()
+                return resp
+        else:
+            self.speak( str(resp)+ " is not a valid choice")
+    	    wait_while_speaking()
+            self.getinput()
 
     def endgame(self, score):
 	self.enclosure.deactivate_mouth_events()
