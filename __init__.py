@@ -47,7 +47,7 @@ class TriviaSkill(MycroftSkill):
 	return
 
     def right(self):
-        self.enclosure.mouth_text( "RIGHT!" )
+        self.enclosure.mouth_text( "CORRECT!" )
         self.speak(random.choice(right))
 	wait_while_speaking()
 	self.play( 'true.wav' )
