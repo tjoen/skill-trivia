@@ -98,6 +98,7 @@ class TriviaSkill(MycroftSkill):
             #response = None
             resp = self.get_response('what.is.your.answer')
 	    wait_while_speaking()
+	    time.sleep(3)
             if resp in validmc and resp != None:
                 response = resp
 		if resp == 'repeat':
