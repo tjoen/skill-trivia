@@ -97,13 +97,13 @@ class TriviaSkill(MycroftSkill):
     def getinput(self):
             #response = None
             resp = self.get_response('what.is.your.answer')
-	    wait_while_speaking()
-	    time.sleep(5)
+	    #wait_while_speaking()
+	    #time.sleep(5)
             if resp in validmc and resp != None:
                 response = resp
 		if resp == 'repeat':
 			self.speak('I will repeat the question')
-			self.askquestion( self, self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
+			self.askquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
                 else:
                         return response
             else:
