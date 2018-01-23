@@ -76,7 +76,7 @@ class TriviaSkill(MycroftSkill):
 	
 
     def repeatquestion(self, category, question, answers, right_answer):
-        self.speak("The category is "+ category+ ". " + quest )
+        self.speak("The category is "+category+". "+ question )
 	wait_while_speaking()
         i=0
         ans = ""
