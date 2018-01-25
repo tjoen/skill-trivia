@@ -114,8 +114,7 @@ class TriviaSkill(MycroftSkill):
         #response = None
         resp = self.get_response('what.is.your.answer')
 	wait_while_speaking()
-	#time.sleep(5)
-        if resp in validmc and resp != None:
+        if resp in validmc and resp != Nonetype:
 	    if resp == 'repeat':
 		self.speak('I will repeat the question')
 		wait_while_speaking()
@@ -153,12 +152,12 @@ class TriviaSkill(MycroftSkill):
         score = 0
 	self.enclosure.deactivate_mouth_events()
         # title code
-        self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=0, y=0, refresh=True)
+        self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0, refresh=True)
         self.play( 'intro.wav' )
 	self.enclosure.deactivate_mouth_events()
 	self.speak("Okay, lets play a game of trivia. Get ready!")
 	wait_while_speaking()
-	time.sleep(4)
+	time.sleep(2)
 	#self.enclosure.activate_mouth_events()
         #self.enclosure.mouth_reset()
 	for f in questions:
