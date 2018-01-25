@@ -138,6 +138,7 @@ class TriviaSkill(MycroftSkill):
 	
     def handle_trivia_intent(self, message):
         # Display icon on faceplate
+	self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0, refresh=True)
         self.settings['cat'] = None
 	self.settings['question'] = None
 	self.settings['answers'] = None
@@ -150,9 +151,6 @@ class TriviaSkill(MycroftSkill):
         questions = m['results'];
 	global score
         score = 0
-	self.enclosure.deactivate_mouth_events()
-        # title code
-        self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0, refresh=True)
         self.play( 'intro.wav' )
 	self.enclosure.deactivate_mouth_events()
 	self.speak("Okay, lets play a game of trivia. Get ready!")
