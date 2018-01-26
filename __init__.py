@@ -108,13 +108,13 @@ class TriviaSkill(MycroftSkill):
 
     def getinput(self, message):
         self.settings['myanswer'] = None
-\
+
         def is_valid(utt):
             try:
                 return 1 <= int(utt) <= 4
             except:
                 return False
-    
+
         self.speak('Ok.')
         wait_while_speaking()        
         r = self.get_response('What is your answer?', validator=is_valid,
