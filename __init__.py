@@ -17,7 +17,7 @@ LOGGER = getLogger(__name__)
 
 right = ['Thats right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice','That is the correct answer']
 wrong = ['That is incorrect', 'Wrong answer','that is not the right answer',  'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
-validmc = [ '1', '2', '3', '4' , 'repeat']
+validmc = [ '1', '2', '3', '4']
 score = 0
 
 class TriviaSkill(MycroftSkill):
@@ -107,35 +107,42 @@ class TriviaSkill(MycroftSkill):
 
     def getinput(self):
   	self.settings['myanswer'] = None
+	self.should_converse = True
         self.speak("What is your answer?", expect_response=True)
 	wait_while_speaking()
-
-    def converse(self, utterances, lang="en-us"):
-	LOGGER.info("TRIVIA log - you answered:  %s", utterances)
-        if utterances == "1":
-            self.settings['myanswer'] = 1
-	    return self.settings.get('myanswer')
-        elif utterances == "2":
-            self.settings['myanswer'] = 2
-	    return self.settings.get('myanswer')
-        elif utterances == "3":
-            self.settings['myanswer'] = 3
-	    return self.settings.get('myanswer')
-        elif utterances == "4":
-            self.settings['myanswer'] = 4
-	    return self.settings.get('myanswer')
-        elif utterances == "repeat":
+	if self.settings['myanswer'] != None and self.settings.get['myanswer'] in validmc:
+            self.should_converse = False
+            return self.settings.get('myanswer')
+        elif self.settings['myanswer'] = 'repeat':
+            self.should_converse = False
             self.speak('I will repeat the question')
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
-	    if utterances == NoneType:
-                self.speak(" You did not make a valid choice")
-    	        wait_while_speaking()
-	    else:
-                self.speak( str(utterances) +"is a valid choice")
-    	        wait_while_speaking()
-            self.getinput()
+            self.should_converse = False
+            self.getinput()       
+
+    def converse(self, utterances, lang="en-us"):
+	LOGGER.info("TRIVIA log - you answered:  %s", utterances)
+        if utterances == "1":
+            self.settings['myanswer'] = '1'
+	    return True
+        elif utterances == "2":
+            self.settings['myanswer'] = '2'
+	    return True
+        elif utterances == "3":
+            self.settings['myanswer'] = '3'
+	    return True
+        elif utterances == "4":
+            self.settings['myanswer'] = '4'
+	    return True
+        elif utterances == "repeat":
+            self.settings['myanswer'] = 'repeat'
+            return True
+        else:
+            self.settings['myanswer'] = None
+            return True
+	return self.should_converse
 
     def endgame(self, score):
 	self.enclosure.deactivate_mouth_events()
