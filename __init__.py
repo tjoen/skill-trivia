@@ -32,7 +32,7 @@ class TriviaSkill(MycroftSkill):
     
     def score(self, point):
         global score
-            score = score+point
+        score = score+point
         return
 
     def wrong(self, right_answer):
