@@ -115,8 +115,7 @@ class TriviaSkill(MycroftSkill):
             except:
                 return False
         
-        r = self.get_response('What is your answer?', validator=is_valid,
-                              on_fail="Your answer should be 1,2,3 or 4", num_retries=5)
+        r = self.get_response('What is your answer?', validator=is_valid, on_fail="Your answer should be 1,2,3 or 4", num_retries=5)
         if r != None and r in validmc:
             return r
         elif r == 'repeat':
