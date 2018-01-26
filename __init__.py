@@ -26,6 +26,7 @@ class TriviaSkill(MycroftSkill):
 
     def initialize(self):
         super(TriviaSkill, self).initialize()
+	self.should_converse = False
 	
     def play(self, filename):
         play_wav( self.settings.get('resdir')+filename )
