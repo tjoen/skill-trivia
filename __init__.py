@@ -110,15 +110,16 @@ class TriviaSkill(MycroftSkill):
 	self.should_converse = True
         self.speak("What is your answer?", expect_response=True)
 	wait_while_speaking()
-	if self.settings['myanswer'] != None and self.settings.get['myanswer'] in validmc:
+	if self.settings.get('myanswer') != None and self.settings.get('myanswer') in validmc:
             self.should_converse = False
             return self.settings.get('myanswer')
-        elif self.settings['myanswer'] = 'repeat':
+        elif self.settings.get('myanswer') = 'repeat':
             self.should_converse = False
             self.speak('I will repeat the question')
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
+            self.speak('Sorry. I did not quite understand that. Choose 1, 2, 3 or 4')
             self.should_converse = False
             self.getinput()       
 
