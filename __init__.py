@@ -106,7 +106,7 @@ class TriviaSkill(MycroftSkill):
             self.wrong(correct_answer)
         return 
 
-    def getinput(self, message):
+    def getinput(self):
         self.settings['myanswer'] = None
 
         def is_valid(utt):
