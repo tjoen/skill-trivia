@@ -89,7 +89,6 @@ class TriviaSkill(MycroftSkill):
     def askquestion( self, category, quest, allanswers, correct_answer):
         i=0
         ans = ""
-        self.should_converse = True
         for a in allanswers:
             i = i + 1
             self.speak(str(i) + ".    " + a)
@@ -117,7 +116,7 @@ class TriviaSkill(MycroftSkill):
 
         self.speak('Ok.')
         wait_while_speaking()        
-        r = self.get_response('What is your answer?', validator=is_valid,
+        r = self.get_response('what.is.your.answer', validator=is_valid,
                   on_fail="Your answer should be 1,2,3 or 4", num_retries=5)
     
         if r != None and r in validmc:
