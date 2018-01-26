@@ -113,7 +113,7 @@ class TriviaSkill(MycroftSkill):
 	if self.settings.get('myanswer') != None and self.settings.get('myanswer') in validmc:
             self.should_converse = False
             return self.settings.get('myanswer')
-        elif self.settings.get('myanswer') = 'repeat':
+        elif self.settings.get('myanswer') == 'repeat':
             self.should_converse = False
             self.speak('I will repeat the question')
             wait_while_speaking()
