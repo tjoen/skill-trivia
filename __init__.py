@@ -129,8 +129,12 @@ class TriviaSkill(MycroftSkill):
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
-            self.speak( utterances +" is not a valid choice")
-    	    wait_while_speaking()
+	    if utterances == NoneType:
+                self.speak(" You did not make a valid choice")
+    	        wait_while_speaking()
+	    else:
+                self.speak( str(utterances) +"is a valid choice")
+    	        wait_while_speaking()
             self.getinput()
 
     def endgame(self, score):
