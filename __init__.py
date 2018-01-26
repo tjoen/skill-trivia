@@ -117,7 +117,7 @@ class TriviaSkill(MycroftSkill):
         self.speak('Ok.')
         wait_while_speaking()        
         r = self.get_response('what.is.your.answer', validator=is_valid,
-                  on_fail="Your answer should be 1,2,3 or 4", num_retries=5)
+                  on_fail="what.is.your.answer", num_retries=3)
     
         if r != None and r in validmc:
             return r
