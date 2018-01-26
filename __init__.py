@@ -111,14 +111,15 @@ class TriviaSkill(MycroftSkill):
 	wait_while_speaking()
 	#while self.settings['myanswer'] = None :
 	#	time.sleep(0.2)
-        if self.settings.get['myanswer'] in validmc:
-                return self.settings.get['myanswer']
+        if self.settings.get('myanswer') in validmc:
+                return self.settings.get('myanswer')
         else:
-            self.speak( str(self.settings.get['myanswer'])+ " is not a valid choice")
+            self.speak( str(self.settings.get('myanswer'))+ " is not a valid choice")
     	    wait_while_speaking()
             self.getinput()
 
     def converse(self, utterances, lang="en-us"):
+	LOGGER.info("TRIVIA log - you answered:  %s", utterances)
         if utterances == "1":
             self.settings['myanswer'] = 1
         elif utterances == "2":
