@@ -155,7 +155,7 @@ class TriviaSkill(MycroftSkill):
         wait_while_speaking()
 	self.stop()
 	
-    def handle_trivia_intent(self, message):
+    def handle_trivia_intent(self):
         # Display icon on faceplate
 	self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0, refresh=True)
         self.settings['cat'] = None
@@ -191,7 +191,7 @@ class TriviaSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder("TriviaIntent").require("TriviaKeyword"))
     def detect_trivia_intent(self, message):
-        self.handle_trivia_intent( message )
+        self.handle_trivia_intent()
 
 def create_skill():
     return TriviaSkill()
