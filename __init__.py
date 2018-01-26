@@ -109,30 +109,28 @@ class TriviaSkill(MycroftSkill):
   	self.settings['myanswer'] = None
         self.speak("What is your answer?", expect_response=True)
 	wait_while_speaking()
-	#while self.settings['myanswer'] = None :
-	#	time.sleep(0.2)
-        if self.settings.get('myanswer') in validmc:
-                return self.settings.get('myanswer')
-        else:
-            self.speak( str(self.settings.get('myanswer'))+ " is not a valid choice")
-    	    wait_while_speaking()
-            self.getinput()
 
     def converse(self, utterances, lang="en-us"):
 	LOGGER.info("TRIVIA log - you answered:  %s", utterances)
         if utterances == "1":
             self.settings['myanswer'] = 1
+	    return self.settings.get('myanswer')
         elif utterances == "2":
             self.settings['myanswer'] = 2
+	    return self.settings.get('myanswer')
         elif utterances == "3":
             self.settings['myanswer'] = 3
+	    return self.settings.get('myanswer')
         elif utterances == "4":
             self.settings['myanswer'] = 4
+	    return self.settings.get('myanswer')
         elif utterances == "repeat":
             self.speak('I will repeat the question')
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
+            self.speak( utterances +" is not a valid choice")
+    	    wait_while_speaking()
             self.getinput()
 
     def endgame(self, score):
