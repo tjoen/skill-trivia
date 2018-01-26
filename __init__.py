@@ -15,19 +15,17 @@ __author__ = 'tjoen'
 # statements will show up in the command line when running Mycroft.
 LOGGER = getLogger(__name__)
 
-right = ['Right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice']
-wrong = ['That is incorrect', 'Wrong answer', 'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
+right = ['Thats right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice','That is the correct answer']
+wrong = ['That is incorrect', 'Wrong answer','that is not the right answer',  'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
 validmc = [ '1', '2', '3', '4' , 'repeat']
 score = 0
 
 class TriviaSkill(MycroftSkill):
     def __init__(self):
-        super(TriviaSkill, self).__init__("TriviaSkill")
+        super(TriviaSkill, self).__init__(name="TriviaSkill")
 
     def initialize(self):
-	trivia_intent = IntentBuilder("TriviaIntent").\
-            require("TriviaKeyword").build()
-        self.register_intent(trivia_intent, self.handle_trivia_intent)
+        super(TriviaSkill, self).initialize()
 	
     def play(self, filename):
         play_wav( self.settings.get('resdir')+filename )
@@ -74,7 +72,6 @@ class TriviaSkill(MycroftSkill):
 	self.settings['correct_answer'] = correct_answer
 	self.askquestion( category, quest, allanswers, correct_answer )
 	
-
     def repeatquestion(self, category, question, answers, right_answer):
         self.speak("The category is "+category+". "+ question )
 	wait_while_speaking()
@@ -88,8 +85,6 @@ class TriviaSkill(MycroftSkill):
 	#self.enclosure.mouth_text( ans )
 	rresponse = self.getinput()
 	return rresponse
-	
-
 
     def askquestion( self, category, quest, allanswers, correct_answer):
         i=0
@@ -111,19 +106,32 @@ class TriviaSkill(MycroftSkill):
 	return 
 
     def getinput(self):
-        #response = None
-        resp = self.get_response('what.is.your.answer')
+  	self.settings['myanswer'] = None
+        self.speak("What is your answer?", expect_response=True)
 	wait_while_speaking()
-        if resp in validmc and resp != Nonetype:
-	    if resp == 'repeat':
-		self.speak('I will repeat the question')
-		wait_while_speaking()
-		self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
-            else:
-                return resp
+	#while self.settings['myanswer'] = None :
+	#	time.sleep(0.2)
+        if self.settings.get['myanswer'] in validmc:
+                return self.settings.get['myanswer']
         else:
-            self.speak( str(resp)+ " is not a valid choice")
+            self.speak( str(self.settings.get['myanswer'])+ " is not a valid choice")
     	    wait_while_speaking()
+            self.getinput()
+
+    def converse(self, utterances, lang="en-us"):
+        if utterances == "1":
+            self.settings['myanswer'] = 1
+        elif utterances == "2":
+            self.settings['myanswer'] = 2
+        elif utterances == "3":
+            self.settings['myanswer'] = 3
+        elif utterances == "4":
+            self.settings['myanswer'] = 4
+        elif utterances == "repeat":
+            self.speak('I will repeat the question')
+            wait_while_speaking()
+            self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
+        else:
             self.getinput()
 
     def endgame(self, score):
@@ -142,6 +150,7 @@ class TriviaSkill(MycroftSkill):
         self.settings['cat'] = None
 	self.settings['question'] = None
 	self.settings['answers'] = None
+	self.settings['myanswer'] = None
 	self.settings['correct_answer'] = None
 	self.settings['resdir'] = '/opt/mycroft/skills/skill-trivia/res/'
         url = "https://opentdb.com/api.php?amount=5&type=multiple"
@@ -166,9 +175,12 @@ class TriviaSkill(MycroftSkill):
     def stop(self):
 	self.enclosure.activate_mouth_events()
         self.enclosure.mouth_reset()
-	self.enclosure.reset()
-	
+	self.enclosure.reset()	
         pass
+
+    @intent_handler(IntentBuilder("TriviaIntent").require("TriviaKeyword"))
+    def detect_trivia_intent(self, message):
+        self.handle_trivia_intent( message )
 
 def create_skill():
     return TriviaSkill()
