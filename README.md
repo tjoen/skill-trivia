@@ -23,8 +23,8 @@ Working features:
 * "Hey Mycroft, let's play trivia"
 
 ## Credits 
-Theun Kohlbeck, @tjoen
-Steen Bentall, @barricados
+Theun Kohlbeck, https://github.com/tjoen
+Steen Bentall, https://github.com/barricados
 
 ## Require 
 platform_mark1 platform_picroft platform_plasmoid 
