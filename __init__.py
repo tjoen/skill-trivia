@@ -109,6 +109,7 @@ class TriviaSkill(MycroftSkill):
         self.settings['myanswer'] = None
 
         def is_valid(utt):
+            print ( 'utterance ='+ str(utt) )
             try:
                 return 1 <= int(utt) <= 4
             except:
