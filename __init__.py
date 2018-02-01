@@ -119,7 +119,7 @@ class TriviaSkill(MycroftSkill):
         r = self.get_response('what.is.your.answer', validator=is_valid,
                   on_fail="what.is.your.answer", num_retries=3)
     
-        if r != None and r in validmc:
+        if r not None and r in validmc:
             return r
 
         elif r == 'repeat':
@@ -127,14 +127,14 @@ class TriviaSkill(MycroftSkill):
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
-            self.speak('Sorry. I did not quite understand that. Choose 1, 2, 3 or 4')
+            self.speak('Sorry. I did not quite understand ' + r + '. Please choose 1, 2, 3 or 4')
             self.getinput()   
 
     def endgame(self, score):
         self.enclosure.deactivate_mouth_events()
         self.play( 'end.wav' )
         self.enclosure.mouth_text( "SCORE: "+str(score) )
-        self.speak("You answered " +c+ " questions correct")
+        self.speak("You answered " +str(score)+ " questions correct")
         wait_while_speaking()
         self.speak("Thanks for playing!")
         wait_while_speaking()
