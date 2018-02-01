@@ -4,16 +4,16 @@ This skill starts a game of general trivia.
 ## Description 
 At the moment, the skill will ask you 5 questions. You can answer by choosing 1,2,3 or 4.
 
-##Current state
+## Current state
 Working features:
 - play trivia
 - let's play trivia
 - game of trivia
 
-Known issues:
+## Known issues:
 - Responses sometimes don't get picked up. the skill should ask you to try answering again.
 
-TODO:
+## TODO:
 - Set categories or category in webinterface
 - implement more players
 - set difficulty
