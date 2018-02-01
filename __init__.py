@@ -16,7 +16,7 @@ __author__ = 'tjoen'
 LOGGER = getLogger(__name__)
 
 right = ['Thats right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice','That is the correct answer']
-wrong = ['That is incorrect', 'Wrong answer','that is not the right answer',  'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
+wrong = ['That is incorrect', 'Wrong answer','That is not the right answer',  'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
 validmc = [ '1', '2', '3', '4']
 score = 0
 
@@ -53,7 +53,6 @@ class TriviaSkill(MycroftSkill):
         return    
 
     def preparequestion(self, category, question, answers, right_answer):
-    #
         self.enclosure.activate_mouth_events()
         self.enclosure.mouth_reset()
         h = HTMLParser()
@@ -109,14 +108,14 @@ class TriviaSkill(MycroftSkill):
         self.settings['myanswer'] = None
 
         def is_valid(utt):
-            print ( 'utterance ='+ str(utt) )
+            #print ( 'utterance ='+ str(utt) )
             try:
                 return 1 <= int(utt) <= 4
             except:
                 return False
 
-        self.speak('Ok.')
-        wait_while_speaking()        
+        #self.speak('Ok.')
+        #wait_while_speaking()        
         r = self.get_response('what.is.your.answer', validator=is_valid,
                   on_fail="what.is.your.answer", num_retries=3)
     
