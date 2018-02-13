@@ -127,7 +127,7 @@ class TriviaSkill(MycroftSkill):
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
-            self.speak('Sorry. I did not quite understand ' + r + '. Please choose 1, 2, 3 or 4')
+            self.speak('Sorry. I did not quite understand. Please choose 1, 2, 3 or 4')
             self.getinput()   
 
     def endgame(self, score):
