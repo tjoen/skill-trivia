@@ -117,8 +117,7 @@ class TriviaSkill(MycroftSkill):
      
         r = self.get_response('what.is.your.answer')
         wait_while_speaking()
-        LOGGER.info('Trivia-skill: reply = ' + str(r)
-                    
+        LOGGER.info('Trivia-skill: reply = ' + str(r))
         if r is None:
             self.speak('Sorry. I did not quite understand.')
             wait_while_speaking()
