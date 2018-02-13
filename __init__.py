@@ -116,11 +116,11 @@ class TriviaSkill(MycroftSkill):
                 return False
      
         r = self.get_response('what.is.your.answer')   
-        wait_while_speaking()
         LOGGER.info('Trivia-skill: reply = ' + str(r))
         
         if r is None:
             self.speak('Sorry. I did not quite understand.')
+            wait_while_speaking()
             self.getinput()
         elif r in validmc:
             return r
@@ -130,6 +130,7 @@ class TriviaSkill(MycroftSkill):
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
             self.speak('Sorry. I did not quite understand.')
+            wait_while_speaking()
             self.getinput()   
 
     def endgame(self, score):
