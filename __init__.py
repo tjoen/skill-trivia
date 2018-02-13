@@ -1,7 +1,7 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.audio import wait_while_speaking
-from mycroft.util import play_wav
+from mycroft.util import play_wav, extractnumber
 from mycroft.util.log import getLogger
 import requests
 import json
