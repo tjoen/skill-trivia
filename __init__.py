@@ -57,6 +57,7 @@ class TriviaSkill(MycroftSkill):
         self.enclosure.mouth_reset()
         h = HTMLParser()
         quest = h.unescape( question )
+        time.sleep(1.5)
         self.speak("The category is "+ category+ ". " + quest )
         wait_while_speaking()
         correct_answer = h.unescape( right_answer )
@@ -93,6 +94,7 @@ class TriviaSkill(MycroftSkill):
             i = i + 1
             self.speak(str(i) + ".    " + a)
             wait_while_speaking()
+            time.sleep(0.5)
             #ans = ans+("|"+str(i)+">"+a)
         #self.enclosure.mouth_text( ans )
         response = self.getinput()
