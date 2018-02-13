@@ -118,6 +118,8 @@ class TriviaSkill(MycroftSkill):
         r = self.get_response('what.is.your.answer')   
         wait_while_speaking()
         n = extractnumber( r )
+        LOGGER.info('Trivia-skill: reply = ' + str(r))
+        LOGGER.info('Trivia-skill: reply = ' + str(n))
         
         if n != None and n in validmc:
             return n
