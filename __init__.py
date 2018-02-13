@@ -1,7 +1,7 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.audio import wait_while_speaking
-from mycroft.util import play_wav, extractnumber
+from mycroft.util import play_wav
 from mycroft.util.log import getLogger
 import requests
 import json
@@ -117,12 +117,10 @@ class TriviaSkill(MycroftSkill):
      
         r = self.get_response('what.is.your.answer')   
         wait_while_speaking()
-        n = extractnumber( r )
         LOGGER.info('Trivia-skill: reply = ' + str(r))
-        LOGGER.info('Trivia-skill: reply = ' + str(n))
         
-        if n != None and n in validmc:
-            return n
+        if r != None and r in validmc:
+            return r
         elif r == 'repeat':
             self.speak('I will repeat the question')
             wait_while_speaking()
