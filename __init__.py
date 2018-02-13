@@ -121,15 +121,19 @@ class TriviaSkill(MycroftSkill):
         if r is None:
             self.speak('Sorry. I did not quite understand.')
             wait_while_speaking()
-            self.getinput()
-        elif r in validmc:
-            return r
-        elif r == 'repeat':
+            n = '0'
+            self.getinput()       
+        else:
+            n = r
+            
+        if n in validmc:
+            return n
+        elif n == 'repeat':
             self.speak('I will repeat the question')
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
-            self.speak('Sorry. I did not quite understand.')
+            self.speak('Sorry. I did not understand that.')
             wait_while_speaking()
             self.getinput()   
 
