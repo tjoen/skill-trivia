@@ -115,12 +115,9 @@ class TriviaSkill(MycroftSkill):
             except:
                 return False
      
-        r = self.get_response('what.is.your.answer', validator=is_valid,
-                  on_fail="what.is.your.answer")
-    
-        if r is not NoneType and r in validmc:
+        r = self.get_response('what.is.your.answer')   
+        if r != None and r in validmc:
             return r
-
         elif r == 'repeat':
             self.speak('I will repeat the question')
             wait_while_speaking()
