@@ -106,7 +106,7 @@ class TriviaSkill(MycroftSkill):
         return 
 
     def getinput(self):
-        self.settings['myanswer'] = None
+        #self.settings['myanswer'] = None
 
         def is_valid(utt):
             #print ( 'utterance ='+ str(utt) )
@@ -116,14 +116,18 @@ class TriviaSkill(MycroftSkill):
                 return False
      
         r = self.get_response('what.is.your.answer')   
-        if r != None and r in validmc:
-            return r
+        wait_while_speaking()
+        if r:
+        n = extractnumber( r )
+        
+        if n != None and n in validmc:
+            return n
         elif r == 'repeat':
             self.speak('I will repeat the question')
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
-            self.speak('Sorry. I did not quite understand. Please choose 1, 2, 3 or 4')
+            self.speak('Sorry. I did not quite understand.')
             self.getinput()   
 
     def endgame(self, score):
