@@ -115,17 +115,16 @@ class TriviaSkill(MycroftSkill):
             except:
                 return False
      
-        r = self.get_response('what.is.your.answer')   
-        LOGGER.info('Trivia-skill: reply = ' + str(r))
-        
+        r = self.get_response('what.is.your.answer')
+        wait_while_speaking()
+        LOGGER.info('Trivia-skill: reply = ' + str(r)
         if r is None:
             self.speak('Sorry. I did not quite understand.')
             wait_while_speaking()
             n = '0'
             self.getinput()       
         else:
-            n = r
-            
+            n = str(r)    
         if n in validmc:
             return n
         elif n == 'repeat':
