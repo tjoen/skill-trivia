@@ -114,11 +114,10 @@ class TriviaSkill(MycroftSkill):
                 return 1 <= int(utt) <= 4
             except:
                 return False
-
-        #self.speak('Ok.')
-        #wait_while_speaking()        
+     
         r = self.get_response('what.is.your.answer', validator=is_valid,
-                  on_fail="what.is.your.answer", num_retries=3)
+                  on_fail="what.is.your.answer")
+        wait_while_speaking()
     
         if r is not None and r in validmc:
             return r
