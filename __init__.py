@@ -97,7 +97,8 @@ class TriviaSkill(MycroftSkill):
             time.sleep(0.5)
             #ans = ans+("|"+str(i)+">"+a)
         #self.enclosure.mouth_text( ans )
-        response = self.getinput()
+        self.getinput()
+        response = self.settings.get('myanswer')
         self.speak("Your choice is "+ str(response))
         wait_while_speaking()
         self.enclosure.deactivate_mouth_events()
@@ -123,15 +124,15 @@ class TriviaSkill(MycroftSkill):
         if r is None:
             self.speak('Sorry. I did not quite understand.')
             wait_while_speaking()
-            n = '0'
             self.getinput()       
         else:
-            n = str(r)
-            LOGGER.info('Trivia-skill: n = ' + str(n))
-        if n in validmc:
-            LOGGER.info('Trivia-skill: n seems valid = ' + str(n))
+            self.settings['myanswer'] = None
+            LOGGER.info('Trivia-skill: r = ' + str(r))
+        if r in validmc:
+            self.settings['myanswer'] = str(r)
+            LOGGER.info('Trivia-skill: r seems valid = ' + str(r))
             return n
-        elif n == 'repeat':
+        elif r == 'repeat':
             self.speak('I will repeat the question')
             wait_while_speaking()
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
