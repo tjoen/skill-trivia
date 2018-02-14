@@ -84,8 +84,8 @@ class TriviaSkill(MycroftSkill):
             wait_while_speaking()
         #ans = ans+("|"+str(i)+"|"+a)
         #self.enclosure.mouth_text( ans )
-        rresponse = self.getinput()
-        return rresponse
+        self.getinput()
+        return
 
     def askquestion( self, category, quest, allanswers, correct_answer):
         i=0
@@ -131,7 +131,7 @@ class TriviaSkill(MycroftSkill):
         if r in validmc:
             self.settings['myanswer'] = str(r)
             LOGGER.info('Trivia-skill: r seems valid = ' + str(r))
-            return n
+            return
         elif r == 'repeat':
             self.speak('I will repeat the question')
             wait_while_speaking()
