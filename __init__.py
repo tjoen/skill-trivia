@@ -126,8 +126,10 @@ class TriviaSkill(MycroftSkill):
             n = '0'
             self.getinput()       
         else:
-            n = str(r)    
+            n = str(r)
+            LOGGER.info('Trivia-skill: n = ' + str(n))
         if n in validmc:
+            LOGGER.info('Trivia-skill: n seems valid = ' + str(n))
             return n
         elif n == 'repeat':
             self.speak('I will repeat the question')
@@ -135,6 +137,7 @@ class TriviaSkill(MycroftSkill):
             self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
         else:
             self.speak('Sorry. I did not understand that.')
+            LOGGER.info('Trivia-skill: r seems invalid = ' + str(r))
             wait_while_speaking()
             self.getinput()   
 
