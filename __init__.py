@@ -92,7 +92,6 @@ class TriviaSkill(MycroftSkill):
             i = i + 1
             self.speak(str(i) + ".    " + a)
             wait_while_speaking()
-            time.sleep(0.5)
             #ans = ans+("|"+str(i)+">"+a)
         #self.enclosure.mouth_text( ans )
         self.getinput()
@@ -120,25 +119,25 @@ class TriviaSkill(MycroftSkill):
         wait_while_speaking()
         LOGGER.info('Trivia-skill: reply = ' + str(r))
         if r is None:
-            self.speak('Sorry. I did not quite understand.')
+            self.speak('Did not get an answer.')
             wait_while_speaking()
             self.getinput()       
         else:
             self.settings['myanswer'] = None
             LOGGER.info('Trivia-skill: r = ' + str(r))
-        if r in validmc:
-            self.settings['myanswer'] = str(r)
-            LOGGER.info('Trivia-skill: r seems valid = ' + str(r))
-            return
-        elif r == 'repeat':
-            self.speak('I will repeat the question')
-            wait_while_speaking()
-            self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
-        else:
-            self.speak('Sorry. I did not understand that.')
-            LOGGER.info('Trivia-skill: r seems invalid = ' + str(r))
-            wait_while_speaking()
-            self.getinput()   
+            if r in validmc:
+                self.settings['myanswer'] = str(r)
+                LOGGER.info('Trivia-skill: r seems valid = ' + str(r))
+                return
+            elif r == 'repeat':
+                self.speak('I will repeat the question')
+                wait_while_speaking()
+                self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
+            else:
+                self.speak('Sorry. I did not understand that.')
+                LOGGER.info('Trivia-skill: r seems invalid = ' + str(r))
+                wait_while_speaking()
+                self.getinput()   
 
     def endgame(self, score):
         self.enclosure.deactivate_mouth_events()
