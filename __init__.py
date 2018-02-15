@@ -15,8 +15,6 @@ __author__ = 'tjoen'
 # statements will show up in the command line when running Mycroft.
 LOGGER = getLogger(__name__)
 
-right = ['Thats right!', 'That is correct', 'Yes, you are right', 'That is the right answer', 'Yes, good answer', 'Excellent choice','That is the correct answer']
-wrong = ['That is incorrect', 'Wrong answer','That is not the right answer',  'Sorry, you are wrong', 'That is not the right answer', 'You are wrong']
 validmc = [ '1', '2', '3', '4']
 score = 0
 
@@ -37,7 +35,7 @@ class TriviaSkill(MycroftSkill):
 
     def wrong(self, right_answer):
         self.enclosure.mouth_text( "WRONG!" )
-        self.speak(random.choice(wrong))
+        self.speak_dialog("incorrect")
         wait_while_speaking()
         self.play( 'false.wav' )
         self.speak("The answer is "+right_answer)
@@ -46,7 +44,7 @@ class TriviaSkill(MycroftSkill):
 
     def right(self):
         self.enclosure.mouth_text( "CORRECT!" )
-        self.speak(random.choice(right))
+        self.speak_dialog("correct")
         wait_while_speaking()
         self.play( 'true.wav' )
         self.score(1)
