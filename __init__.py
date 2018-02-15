@@ -106,8 +106,7 @@ class TriviaSkill(MycroftSkill):
         return 
 
     def getinput(self):
-        #self.settings['myanswer'] = None
-
+        self.settings['myanswer'] = None
         def is_valid(utt):
             #print ( 'utterance ='+ str(utt) )
             try:
@@ -117,13 +116,17 @@ class TriviaSkill(MycroftSkill):
      
         r = self.get_response('what.is.your.answer')
         wait_while_speaking()
+        
+        if not r:
+            time.sleep(0.5)
+        
         LOGGER.info('Trivia-skill: reply = ' + str(r))
+        
         if r is None:
             self.speak('Did not get an answer.')
             wait_while_speaking()
             self.getinput()       
         else:
-            self.settings['myanswer'] = None
             LOGGER.info('Trivia-skill: r = ' + str(r))
             if r in validmc:
                 self.settings['myanswer'] = str(r)
@@ -134,7 +137,7 @@ class TriviaSkill(MycroftSkill):
                 wait_while_speaking()
                 self.repeatquestion( self.settings.get('cat'), self.settings.get('question'), self.settings.get('answers'), self.settings.get('correct_answer'))
             else:
-                self.speak('Sorry. I did not understand that.')
+                self.speak('Sorry. I did not understand ' + str(r) )
                 LOGGER.info('Trivia-skill: r seems invalid = ' + str(r))
                 wait_while_speaking()
                 self.getinput()   
@@ -153,6 +156,7 @@ class TriviaSkill(MycroftSkill):
         self.enclosure.deactivate_mouth_events()
         # Display icon on faceplate
         self.enclosure.mouth_display("aIMAMAMPMPMPMAMAAPAPADAAIOIOAAAHAMAMAHAAIOIOAAAPAFAFAPAAMLMLAAAAAA", x=1, y=0, refresh=True)
+        time.sleep(2) 
         self.settings['cat'] = None
         self.settings['question'] = None
         self.settings['answers'] = None
@@ -167,17 +171,14 @@ class TriviaSkill(MycroftSkill):
         global score
         score = 0
         self.play( 'intro.wav' )
-        time.sleep(2) 
         self.speak("Okay, lets play a game of trivia. Get ready!")
         wait_while_speaking()
-
         for f in questions:
             self.enclosure.activate_mouth_events()
             self.enclosure.mouth_reset()
             self.preparequestion( f['category'], f['question'], f['incorrect_answers'], f['correct_answer'])
         self.endgame(score)
     
-
     def stop(self):
         self.enclosure.activate_mouth_events()
         self.enclosure.mouth_reset()
