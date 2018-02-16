@@ -115,11 +115,7 @@ class TriviaSkill(MycroftSkill):
                 return False
      
         r = self.get_response('what.is.your.answer')
-        wait_while_speaking()
-        
-        if not r:
-            time.sleep(0.5)
-        
+        wait_while_speaking()        
         LOGGER.info('Trivia-skill: reply = ' + str(r))
         
         if r is None:
